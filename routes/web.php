@@ -18,10 +18,10 @@ $router->put('/employees/{id}', 'EmployeeController@update');
 $router->patch('/employees/{id}', 'EmployeeController@update');
 $router->delete('/employees/{id}', 'EmployeeController@destroy');
 
-$router->get('/applicants', 'ApplicantsController@index');
-$router->post('/applicants', 'ApplicantsController@store');
-$router->get('/applicants/{id}', 'ApplicantsController@show');
-$router->put('/applicants/{id}', 'ApplicantsController@update');
-$router->patch('/applicants/{id}', 'Applicantsontroller@update');
-$router->delete('/applicants/{id}', 'ApplicantsController@destroy');
+$router->get('/applicants', 'ApplicantController@index');
+$router->post('/applicants', 'ApplicantController@store');
+$router->get('/applicants/{id}', 'ApplicantController@show');
+$router->put('/applicants/{id}', 'ApplicantController@update');
+$router->patch('/applicants/{id}', 'ApplicantController@update');
+$router->delete('/applicants/{id}', 'ApplicantController@destroy');
 

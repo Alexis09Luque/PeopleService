@@ -39,8 +39,16 @@ class EmployeeController extends Controller
 
      public function store(Request $request){
         $rules = [
-            'name' => 'required|unique:Employees|max:100',
-            'faculty_id' => 'required|min:1|exists:faculties,id',
+            'dni' =>'required|unique:employees|max:8', 
+            'code' =>'nullable', 
+            'names' =>'required', 
+            'surname' =>'required', 
+            'profile' =>'required', 
+            'date_of_birth' =>'nullable', 
+            'phone' =>'nullable', 
+            'gender' =>'nullable|in:M,F', 
+            'address' =>'nullable', 
+            'email' =>'nullable', 
         ];
 
         $this->validate($request,$rules);
@@ -75,8 +83,13 @@ class EmployeeController extends Controller
         $employee = Employee::findOrFail($id);
 
         $rules = [
-            'name' => "max:100|unique:Employees,name,$id",
-            'faculty_id' => 'min:1|exists:faculties,id', 
+            'dni' =>"unique:employees,dni,$id|max:8", 
+            'code' => 'nullable',
+            'date_of_birth' =>'nullable', 
+            'phone' =>'nullable', 
+            'gender' =>'nullable|in:F,M', 
+            'address' =>'nullable', 
+            'email' =>'nullable', 
         ];
 
         $this->validate($request,$rules);

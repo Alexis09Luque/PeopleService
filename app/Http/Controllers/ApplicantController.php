@@ -7,7 +7,7 @@ use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class ExampleController extends Controller
+class ApplicantController extends Controller
 {
     use ApiResponser;
     /**
@@ -39,8 +39,21 @@ class ExampleController extends Controller
 
      public function store(Request $request){
         $rules = [
-            'name' => 'required|unique:Applicants|max:100',
-            'faculty_id' => 'required|min:1|exists:faculties,id',
+            'dni' => 'required|unique:applicants|max:8',
+            'names' => 'required',
+            'surname' => 'required',
+            'gender' => 'required|in:M,F',
+            'type' => 'required|in:Posgrado,Pregrado,Docente,Externo,Otros',
+            'institutional_email'=> 'required|unique:applicants',
+            'photo' => 'nullable',
+            'code' => 'required_unless:type,Otros|unique:applicants|string',
+            'school_id' => 'required_unless:type,Otros,Docente|integer|min:1',
+            'phone' => 'nullable',
+            'mobile' => 'nullable',
+            'personal_email' => 'nullable',
+            'address' => 'nullable',
+            'description' => 'nullable',
+             
         ];
 
         $this->validate($request,$rules);
@@ -75,8 +88,18 @@ class ExampleController extends Controller
         $applicant = Applicant::findOrFail($id);
 
         $rules = [
-            'name' => "max:100|unique:Applicants,name,$id",
-            'faculty_id' => 'min:1|exists:faculties,id', 
+            'dni' => "unique:applicants,dni,$id|max:8",
+            'gender' => 'in:M,F',
+            'type' => 'in:Posgrado,Pregrado,Docente,Externo,Otros',
+            'institutional_email'=> "unique:applicants,institutional_email,$id",
+            'photo' => 'nullable',
+            'code' => "unique:applicants,code,$id|string",
+            'school_id' => 'integer|min:1',
+            'phone' => 'nullable',
+            'mobile' => 'nullable',
+            'personal_email' => 'nullable',
+            'address' => 'nullable',
+            'description' => 'nullable',
         ];
 
         $this->validate($request,$rules);

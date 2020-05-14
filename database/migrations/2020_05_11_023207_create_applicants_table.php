@@ -21,14 +21,14 @@ class CreateApplicantsTable extends Migration
             $table->string('gender');
             $table->string('type');
             $table->string('institutional_email');
-            $table->string('photo');
-            $table->string('code');
-            $table->integer('school_id');
-            $table->string('phone');
-            $table->string('mobile');
-            $table->string('personal_email');
-            $table->string('address');
-            $table->string('description');
+            $table->string('photo')->nullable();
+            $table->string('code')->nullable();
+            $table->integer('school_id')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('mobile')->nullable();
+            $table->string('personal_email')->nullable();
+            $table->string('address')->nullable();
+            $table->string('description')->nullable();
             
             $table->timestamps();
         });
