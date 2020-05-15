@@ -15,12 +15,12 @@ class CreateApplicantsTable extends Migration
     {
         Schema::create('applicants', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('dni');
+            $table->string('dni',8)->unique();
             $table->string('names');
             $table->string('surname');
             $table->string('gender');
             $table->string('type');
-            $table->string('institutional_email');
+            $table->string('institutional_email',100)->unique();
             $table->string('photo')->nullable();
             $table->string('code')->nullable();
             $table->integer('school_id')->nullable();
