@@ -15,12 +15,12 @@ $factory->define(App\Applicant::class, function (Faker\Generator $faker) {
 
     return [
         
-        'dni'=> $dni = $faker->ean8,
+        'dni'=> $dni = $faker->unique()->ean8,
         'names'=> $names = $faker->firstName(),
         'surname'=> $surname = $faker->lastName(),
         'gender'=> $gender = $faker->randomElement(['M','F']),
         'type'=> $type = $faker->randomElement(['Posgrado','Externo','Pregrado']),
-        'institutional_email'=> $institutional_email = $faker->safeEmail,
+        'institutional_email'=> $institutional_email = $faker->unique()->safeEmail,
         'photo'=> $photo = $faker->url,
         'code'=> $code = $faker->ean8 ,
         'school_id'=> $school_id = $faker->numberBetween(1,50),
