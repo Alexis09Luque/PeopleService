@@ -14,7 +14,7 @@
 $factory->define(App\Employee::class, function (Faker\Generator $faker) {
 
     return [
-        'dni'=> $dni = $faker->ean8,
+        'dni'=> $dni = $faker->unique()->ean8,
         'code'=> $code = $faker->ean8 ,
         'names'=> $names = $faker->firstName(),
         'surname'=> $surname = $faker->lastName(),
