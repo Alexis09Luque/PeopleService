@@ -26,7 +26,7 @@ $factory->define(App\Applicant::class, function (Faker\Generator $faker) {
         'school_id'=> $school_id = $faker->numberBetween(1,50),
         'phone'=> $phone= $faker->phoneNumber,
         'mobile'=> $phone= $faker->phoneNumber,
-        'personal_email'=> $personal_email = $faker->email,
+        'personal_email'=> $personal_email = $faker->unique()->email,
         'address'=> $address = $faker->address,
         'description'=> $description = $faker->text(200),
     ];

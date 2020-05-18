@@ -26,7 +26,7 @@ class CreateApplicantsTable extends Migration
             $table->integer('school_id')->nullable();
             $table->string('phone')->nullable();
             $table->string('mobile')->nullable();
-            $table->string('personal_email')->nullable();
+            $table->string('personal_email',100)->nullable()->unique();
             $table->string('address')->nullable();
             $table->string('description')->nullable();
             

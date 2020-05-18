@@ -20,11 +20,12 @@ class CreateEmployeesTable extends Migration
             $table->string('names');
             $table->string('surname');
             $table->string('profile');
+            $table->integer('profile_id');
             $table->string('date_of_birth')->nullable();
             $table->string('gender')->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
-            $table->string('email')->nullable();
+            $table->string('email',100)->nullable()->unique();
 
             $table->timestamps();
         });
