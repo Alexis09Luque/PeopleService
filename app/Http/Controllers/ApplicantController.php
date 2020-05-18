@@ -50,7 +50,7 @@ class ApplicantController extends Controller
             'school_id' => 'required_unless:type,Otros,Docente|integer|min:1',
             'phone' => 'nullable',
             'mobile' => 'nullable',
-            'personal_email' => 'nullable',
+            'personal_email' => 'nullable|unique:applicants',
             'address' => 'nullable',
             'description' => 'nullable',
              
@@ -97,7 +97,7 @@ class ApplicantController extends Controller
             'school_id' => 'integer|min:1',
             'phone' => 'nullable',
             'mobile' => 'nullable',
-            'personal_email' => 'nullable',
+            'personal_email' => "nullable|unique:applicants,personal_email,$id",
             'address' => 'nullable',
             'description' => 'nullable',
         ];
