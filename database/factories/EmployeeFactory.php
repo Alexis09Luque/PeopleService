@@ -18,11 +18,12 @@ $factory->define(App\Employee::class, function (Faker\Generator $faker) {
         'code'=> $code = $faker->ean8 ,
         'names'=> $names = $faker->firstName(),
         'surname'=> $surname = $faker->lastName(),
-        'profile'=> $profile = $faker->randomElement(['Administrativo','Bolsista','Bibliotecario']) ,
+        'profile'=> $profile = $faker->randomElement(['Administrativo','Bolsista','Bibliotecario']),
+        'profile_id'=> $profile_id = $faker->numberBetween(1,3),
         'date_of_birth'=> $date_of_birth = $faker->date('Y-m-d', 'now'),
         'phone'=> $phone= $faker->phoneNumber,
         'gender'=> $gender = $faker->randomElement(['M','F']),
         'address'=> $address = $faker->address,
-        'email' => $email = $faker->email, 
+        'email' => $email = $faker->unique()->email, 
     ];
 });

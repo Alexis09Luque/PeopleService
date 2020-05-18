@@ -43,7 +43,8 @@ class EmployeeController extends Controller
             'code' =>'nullable', 
             'names' =>'required', 
             'surname' =>'required', 
-            'profile' =>'required', 
+            'profile' =>'required',
+            'profile_id' =>'integer|required|min:1', 
             'date_of_birth' =>'nullable', 
             'phone' =>'nullable', 
             'gender' =>'nullable|in:M,F', 
@@ -85,6 +86,8 @@ class EmployeeController extends Controller
         $rules = [
             'dni' =>"unique:employees,dni,$id|max:8", 
             'code' => 'nullable',
+            'profile' =>'required_with:profile_id', 
+            'profile_id' =>'required_with:profile|integer|min:1', 
             'date_of_birth' =>'nullable', 
             'phone' =>'nullable', 
             'gender' =>'nullable|in:F,M', 
