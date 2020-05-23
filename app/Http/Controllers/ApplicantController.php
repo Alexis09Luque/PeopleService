@@ -45,7 +45,7 @@ class ApplicantController extends Controller
             'gender' => 'required|in:M,F',
             'type' => 'required|in:Posgrado,Pregrado,Docente,Externo,Otros',
             'institutional_email'=> 'required|unique:applicants',
-            'photo' => 'nullable,image',
+            'photo' => 'nullable|image',
             'code' => 'required_unless:type,Otros|unique:applicants|string',
             'school_id' => 'required_unless:type,Otros,Docente|integer|min:1',
             'phone' => 'nullable',
