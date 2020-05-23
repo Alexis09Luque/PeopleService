@@ -45,7 +45,7 @@ class ApplicantController extends Controller
             'gender' => 'required|in:M,F',
             'type' => 'required|in:Posgrado,Pregrado,Docente,Externo,Otros',
             'institutional_email'=> 'required|unique:applicants',
-            'photo' => 'nullable',
+            'photo' => 'nullable,image',
             'code' => 'required_unless:type,Otros|unique:applicants|string',
             'school_id' => 'required_unless:type,Otros,Docente|integer|min:1',
             'phone' => 'nullable',
@@ -55,6 +55,22 @@ class ApplicantController extends Controller
             'description' => 'nullable',
              
         ];
+
+        //consultar doble validacion
+        $this->validate($request,$rules);
+        //obteniendo el nombre de la foto, si el request trae un archivo
+        $urlPhotoName = ($request->file('photo')!=null)?time().$request->file('photo')->getClientOriginalName():null;
+       
+        //Guardar la imagen en la unidad de almacenamiento local
+        if($urlPhotoName!=null){
+            
+            //Storage::disk('localApplicants')->put($urlPhotoName,$request->file('photo')));
+            $image = $request->file('photo');
+            //$destination_path = storage_path('/app/images');
+            $destination_path = './upload/applicants';
+            $image->move($destination_path, $urlPhotoName );
+            $request->photo = $urlPhotoName;
+        }
 
         $this->validate($request,$rules);
 
