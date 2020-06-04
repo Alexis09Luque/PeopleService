@@ -6,6 +6,8 @@ use App\Applicant;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class ApplicantController extends Controller
 {
@@ -39,20 +41,20 @@ class ApplicantController extends Controller
 
      public function store(Request $request){
         $rules = [
-            'dni' => 'required|unique:applicants|max:8',
-            'names' => 'required',
-            'surname' => 'required',
-            'gender' => 'required|in:M,F',
-            'type' => 'required|in:Posgrado,Pregrado,Docente,Externo,Otros',
-            'institutional_email'=> 'required|unique:applicants',
+            'dni' => 'integer|required|unique:applicants|digits:8',
+            'names' => 'string|required',
+            'surname' => 'string|required',
+            'gender' => 'string|required|in:M,F',
+            'type' => 'string|required|in:Posgrado,Pregrado,Docente,Externo,Otros',
+            'institutional_email'=> 'string|required|unique:applicants',
             'photo' => 'nullable|image',
             'code' => 'required_unless:type,Otros|unique:applicants|string',
             'school_id' => 'required_unless:type,Otros,Docente|integer|min:1',
-            'phone' => 'nullable',
-            'mobile' => 'nullable',
-            'personal_email' => 'nullable|unique:applicants',
-            'address' => 'nullable',
-            'description' => 'nullable',
+            'phone' => 'integer|nullable|digits_between:6,10',
+            'mobile' => 'integer|nullable|digits:9',
+            'personal_email' => 'string|nullable|unique:applicants',
+            'address' => 'string|nullable',
+            'description' => 'string|nullable|max:200',
              
         ];
 
@@ -63,16 +65,17 @@ class ApplicantController extends Controller
        
         //Guardar la imagen en la unidad de almacenamiento local
         if($urlPhotoName!=null){
-            
+
             //Storage::disk('localApplicants')->put($urlPhotoName,$request->file('photo')));
             $image = $request->file('photo');
             //$destination_path = storage_path('/app/images');
-            $destination_path = './upload/applicants';
-            $image->move($destination_path, $urlPhotoName );
+            $destination_path = storage_path('/upload/');
+            //$image->move($destination_path, $urlPhotoName );
+            //Storage::put($destination_path, $image);
+            Storage::putFileAs('photos', new File('/path/to/photo'), $urlPhotoName);//no se probó
             $request->photo = $urlPhotoName;
         }
 
-        $this->validate($request,$rules);
 
         $applicant = Applicant::create($request->all());
 
@@ -104,20 +107,20 @@ class ApplicantController extends Controller
         $applicant = Applicant::findOrFail($id);
 
         $rules = [
-            'dni' => "unique:applicants,dni,$id|max:8",
-            'gender' => 'in:M,F',
-            'type' => 'in:Posgrado,Pregrado,Docente,Externo,Otros',
-            'institutional_email'=> "unique:applicants,institutional_email,$id",
-            'photo' => 'nullable',
+            'dni' => "integer|unique:applicants,dni,$id|digits:8",
+            'gender' => 'string|in:M,F',
+            'type' => 'string|in:Posgrado,Pregrado,Docente,Externo,Otros',
+            'institutional_email'=> "string|unique:applicants,institutional_email,$id",
+            'photo' => 'image|nullable',
             'code' => "unique:applicants,code,$id|string",
             'school_id' => 'integer|min:1',
-            'phone' => 'nullable',
-            'mobile' => 'nullable',
-            'personal_email' => "nullable|unique:applicants,personal_email,$id",
-            'address' => 'nullable',
-            'description' => 'nullable',
+            'phone' => 'integer|nullable|digits_between:7,10',
+            'mobile' => 'integer|digits:9|nullable',
+            'personal_email' => "string|nullable|unique:applicants,personal_email,$id",
+            'address' => 'string|nullable',
+            'description' => 'string|max:200|nullable',
         ];
-
+        
         $this->validate($request,$rules);
         
 

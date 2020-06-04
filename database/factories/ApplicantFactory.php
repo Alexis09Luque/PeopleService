@@ -12,6 +12,7 @@
 */
 
 $factory->define(App\Applicant::class, function (Faker\Generator $faker) {
+    
 
     return [
         
@@ -24,8 +25,8 @@ $factory->define(App\Applicant::class, function (Faker\Generator $faker) {
         'photo'=> $photo = $faker->url,
         'code'=> $code = $faker->ean8 ,
         'school_id'=> $school_id = $faker->numberBetween(1,50),
-        'phone'=> $phone= $faker->phoneNumber,
-        'mobile'=> $phone= $faker->phoneNumber,
+        'phone'=> $phone= $faker->ean8,
+        'mobile'=> $phone= $faker->numberBetween(900000000,999999999),
         'personal_email'=> $personal_email = $faker->unique()->email,
         'address'=> $address = $faker->address,
         'description'=> $description = $faker->text(200),

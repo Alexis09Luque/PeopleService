@@ -39,17 +39,17 @@ class EmployeeController extends Controller
 
      public function store(Request $request){
         $rules = [
-            'dni' =>'required|unique:employees|max:8', 
-            'code' =>'nullable', 
-            'names' =>'required', 
-            'surname' =>'required', 
-            'profile' =>'required',
+            'dni' =>'integer|required|unique:employees|digits:8', 
+            'code' =>'string|nullable|unique:employees', 
+            'names' =>'string|required|max:50', 
+            'surname' =>'string|required|max:50', 
+            'profile' =>'string|required',
             'profile_id' =>'integer|required|min:1', 
-            'date_of_birth' =>'nullable', 
-            'phone' =>'nullable', 
-            'gender' =>'nullable|in:M,F', 
-            'address' =>'nullable', 
-            'email' =>'nullable', 
+            'date_of_birth' =>'string|nullable', 
+            'phone' =>'integer|nullable|digits_between:7,10', 
+            'gender' =>'string|nullable|in:M,F', 
+            'address' =>'string|nullable', 
+            'email' =>'string|nullable', 
         ];
 
         $this->validate($request,$rules);
@@ -84,17 +84,17 @@ class EmployeeController extends Controller
         $employee = Employee::findOrFail($id);
 
         $rules = [
-            'dni' =>"unique:employees,dni,$id|max:8", 
-            'code' => 'nullable',
-            'profile' =>'required_with:profile_id', 
+            'dni' =>"integer|unique:employees,dni,$id|digits:8", 
+            'code' => "unique:employees,code,$id|nullable",
+            'profile' =>'string|required_with:profile_id', 
             'profile_id' =>'required_with:profile|integer|min:1', 
-            'date_of_birth' =>'nullable', 
-            'phone' =>'nullable', 
-            'gender' =>'nullable|in:F,M', 
-            'address' =>'nullable', 
-            'email' =>'nullable', 
+            'date_of_birth' =>'string|nullable', 
+            'phone' =>'integer|nullable|digits_between:7,10', 
+            'gender' =>'string|nullable|in:F,M', 
+            'address' =>'string|nullable', 
+            'email' =>'string|nullable', 
         ];
-
+        
         $this->validate($request,$rules);
         
 

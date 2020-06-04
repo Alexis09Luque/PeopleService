@@ -21,7 +21,7 @@ $factory->define(App\Employee::class, function (Faker\Generator $faker) {
         'profile'=> $profile = $faker->randomElement(['Administrativo','Bolsista','Bibliotecario']),
         'profile_id'=> $profile_id = $faker->numberBetween(1,3),
         'date_of_birth'=> $date_of_birth = $faker->date('Y-m-d', 'now'),
-        'phone'=> $phone= $faker->phoneNumber,
+        'phone'=> $phone= $faker->numberBetween(900000000,999999999),
         'gender'=> $gender = $faker->randomElement(['M','F']),
         'address'=> $address = $faker->address,
         'email' => $email = $faker->unique()->email, 
