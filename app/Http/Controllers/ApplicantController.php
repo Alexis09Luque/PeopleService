@@ -47,7 +47,7 @@ class ApplicantController extends Controller
             'gender' => 'string|required|in:M,F',
             'type' => 'string|required|in:Posgrado,Pregrado,Docente,Externo,Otros',
             'institutional_email'=> 'string|required|unique:applicants',
-            'photo' => 'nullable|image',
+            'photo' => 'nullable',//si existe el cmpo debe ser imagen
             'code' => 'required_unless:type,Otros|unique:applicants|string',
             'school_id' => 'required_unless:type,Otros,Docente|integer|min:1',
             'phone' => 'integer|nullable|digits_between:6,10',
@@ -70,9 +70,9 @@ class ApplicantController extends Controller
             $image = $request->file('photo');
             //$destination_path = storage_path('/app/images');
             $destination_path = storage_path('/upload/');
-            //$image->move($destination_path, $urlPhotoName );
+            $image->move($destination_path, $urlPhotoName );
             //Storage::put($destination_path, $image);
-            Storage::putFileAs('photos', new File('/path/to/photo'), $urlPhotoName);//no se probó
+            //Storage::putFileAs('photos', new File('/path/to/photo'), $urlPhotoName);//no se probó
             $request->photo = $urlPhotoName;
         }
 

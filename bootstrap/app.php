@@ -57,14 +57,13 @@ $app->singleton(
 |
 */
 
-/** 
+
 $app->middleware([
     'Vluzrmos\LumenCors\CorsMiddleware',
-    App\Http\Middleware\AuthenticateAccess::class,
-    
+    App\Http\Middleware\AuthenticateAccess::class
 ]);
 
-*/
+
 // $app->routeMiddleware([
 //     'auth' => App\Http\Middleware\Authenticate::class,
 // ]);
