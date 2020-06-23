@@ -57,22 +57,19 @@ class ApplicantController extends Controller
             'description' => 'string|nullable|max:200',
              
         ];
-
-        //consultar doble validacion
         $this->validate($request,$rules);
+
+        /**
+         * LOGICA PARA GUARDAR FOTO NO FUNCIONA CORRECTAMENTE POR AHORA
+         */
         //obteniendo el nombre de la foto, si el request trae un archivo
         $urlPhotoName = ($request->file('photo')!=null)?time().$request->file('photo')->getClientOriginalName():null;
        
         //Guardar la imagen en la unidad de almacenamiento local
         if($urlPhotoName!=null){
-
-            //Storage::disk('localApplicants')->put($urlPhotoName,$request->file('photo')));
             $image = $request->file('photo');
-            //$destination_path = storage_path('/app/images');
-            $destination_path = storage_path('/upload/');
-            $image->move($destination_path, $urlPhotoName );
-            //Storage::put($destination_path, $image);
-            //Storage::putFileAs('photos', new File('/path/to/photo'), $urlPhotoName);//no se probó
+            //guarda el nombre por defecto y cuando se le asigna un nombre  crea una carpeta y dentro pone el archivo por defecto
+            Storage::disk('local')->put("",$image);
             $request->photo = $urlPhotoName;
         }
 
