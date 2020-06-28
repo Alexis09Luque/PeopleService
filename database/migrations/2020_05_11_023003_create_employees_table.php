@@ -21,9 +21,9 @@ class CreateEmployeesTable extends Migration
             $table->string('surname');
             $table->string('profile');
             $table->integer('profile_id');
-            $table->string('date_of_birth')->nullable();
+            $table->date('date_of_birth')->nullable();//cambiar a date 
             $table->string('gender')->nullable();
-            $table->string('phone')->nullable();
+            $table->string('phone',10)->nullable();
             $table->string('address')->nullable();
             $table->string('email',100)->nullable()->unique();
 
