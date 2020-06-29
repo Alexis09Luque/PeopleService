@@ -14,9 +14,9 @@ trait ApiResponser
      *
      * @return  Illuminate\Http\Response     
      */
-    public function successResponse($data, $code = Response::HTTP_OK)
+    public function successResponse($data, $code = Response::HTTP_OK, $type = "S001")
     {
-        return response()->json(['data' => $data, 'code' => $code],$code);
+        return response()->json(['data' => $data,'code' => $code,'type' => $type],$code);
     }
 
 
@@ -28,9 +28,9 @@ trait ApiResponser
      *
      * @return  Illuminate\Http\Response     
      */
-    public function errorResponse($message, $code )
+    public function errorResponse($message, $code, $type=null)
     {
-        return response()->json(['error' => $message,'code' => $code],$code);
+        return response()->json(['error' => $message,'code' => $code,'type' => $type],$code);
     }
 
 }

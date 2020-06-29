@@ -42,14 +42,15 @@ class EmployeeController extends Controller
             'dni' =>'integer|required|unique:employees|digits:8', 
             'code' =>'string|nullable|unique:employees', 
             'names' =>'string|required|max:50', 
-            'surname' =>'string|required|max:50', 
-            'profile' =>'string|required',
+            'surname' =>'string|required|max:50',
             'profile_id' =>'integer|required|min:1', 
-            'date_of_birth' =>'string|nullable', 
+            'date_of_birth' =>'string|nullable',
+            'gender' =>'string|nullable|in:M,F',  
             'phone' =>'integer|nullable|digits_between:7,10', 
-            'gender' =>'string|nullable|in:M,F', 
+            'mobile' =>'integer|nullable|digits:9', 
             'address' =>'string|nullable', 
-            'email' =>'string|nullable', 
+            'email' =>'string|nullable|unique:employees', 
+            'photo' => 'nullable'
         ];
 
         $this->validate($request,$rules);
@@ -102,7 +103,7 @@ class EmployeeController extends Controller
 
         if($employee->isClean()){
             return $this->errorResponse('At least one value must change',
-            Response::HTTP_UNPROCESSABLE_ENTITY);
+            Response::HTTP_UNPROCESSABLE_ENTITY, 'E002');
         }
 
         $employee->save();

@@ -79,7 +79,7 @@ class Handler extends ExceptionHandler
             $errors = $exception->validator->errors()->getMessages();
 
             return $this->errorResponse($errors,
-            Response::HTTP_UNPROCESSABLE_ENTITY);
+            Response::HTTP_UNPROCESSABLE_ENTITY,"E001");
         }
 
         if(env('APP_DEBUG',false)){
