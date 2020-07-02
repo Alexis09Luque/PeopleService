@@ -18,13 +18,14 @@ class Employee extends Model
         'code',
         'names',
         'surname',
-        'profile',
         'profile_id',
         'date_of_birth',
         'phone',
+        'mobile',
         'gender',
         'address',
-        'email'
+        'email',
+        'photo'
 
     ];
 
