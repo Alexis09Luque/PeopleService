@@ -87,13 +87,14 @@ class EmployeeController extends Controller
         $rules = [
             'dni' =>"integer|unique:employees,dni,$id|digits:8", 
             'code' => "unique:employees,code,$id|nullable",
-            'profile' =>'string|required_with:profile_id', 
             'profile_id' =>'required_with:profile|integer|min:1', 
             'date_of_birth' =>'string|nullable', 
             'phone' =>'integer|nullable|digits_between:7,10', 
             'gender' =>'string|nullable|in:F,M', 
+            'mobile' => 'string|nullable',
             'address' =>'string|nullable', 
-            'email' =>'string|nullable', 
+            'email' =>'email|nullable', 
+            'photo' => 'nullable|file',
         ];
         
         $this->validate($request,$rules);

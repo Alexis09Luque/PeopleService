@@ -14,8 +14,8 @@
 $router->get('/employees', 'EmployeeController@index');
 $router->post('/employees', ['as' => 'createEmployee', 'uses' =>'EmployeeController@store']);
 $router->get('/employees/{id}', 'EmployeeController@show');
-$router->put('/employees/{id}', 'EmployeeController@update');
-$router->patch('/employees/{id}', 'EmployeeController@update');
+$router->put("/employees/{id}",['as' => 'updateAnEmployee', 'uses' => 'EmployeeController@update']);
+$router->patch("/employees/{id}",['as' => 'updateAnEmployee', 'uses' => 'EmployeeController@update',]);
 $router->delete('/employees/{id}', 'EmployeeController@destroy');
 
 $router->get('/applicants', 'ApplicantController@index');
