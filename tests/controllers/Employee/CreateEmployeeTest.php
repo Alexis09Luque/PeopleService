@@ -51,17 +51,17 @@ class CreateEmployeeTest extends TestCase
 
 
     /**************************************************
-    *             FIELDS NULL
+    *                 FIELDS NULL
     **************************************************/
     /**
     * @test 
     * @author Luque Ayala Alexis
     * @testdox El siguiente test es para la creación de 
-    * empleados cuando se envia un names vacio el cual debe
+    * empleados cuando se envia el camppo names vacio el cual debe
     * responder con un mensaje de error
     */
     public function invalid_create_employee_with_empty_names(){
-        //Creamos perfil con tipo invalido en names
+        //Creamos un empleado con tipo invalido en names
         $employee=factory('App\Employee')->make(['names' => NULL]);
         //comprobar codigo de respuesta
         $this->post(route('createEmployee'),$employee->toArray(),['Authorization' => 'PDQFWb29LPWcf0gsUJpeZksVjUSf7Jnc'])
@@ -80,11 +80,11 @@ class CreateEmployeeTest extends TestCase
     * @test 
     * @author Luque Ayala Alexis
     * @testdox El siguiente test es para la creación de 
-    * empleados cuando se envia un surname vacio el cual debe
+    * empleados cuando se envia vacío el campo surname vacio el cual debe
     * responder con un mensaje de error
     */
     public function invalid_create_employee_with_empty_surname(){
-        //Creamos perfil con tipo invalido en surname
+        //Creamos un empleado con tipo invalido en surname
         $employee=factory('App\Employee')->make(['surname' => NULL]);
         //comprobar codigo de respuesta
         $this->post(route('createEmployee'),$employee->toArray(),['Authorization' => 'PDQFWb29LPWcf0gsUJpeZksVjUSf7Jnc'])
@@ -104,11 +104,11 @@ class CreateEmployeeTest extends TestCase
     * @test 
     * @author Luque Ayala Alexis
     * @testdox El siguiente test es para la creación de 
-    * empleados cuando se envia un dni vacio el cual debe
+    * empleados cuando se envia el campo dni vacio, el cual debe
     * responder con un mensaje de error
     */
     public function invalid_create_employee_with_empty_dni(){
-        //Creamos perfil con tipo invalido en dni
+        //Creamos un empleado con tipo invalido en dni
         $employee=factory('App\Employee')->make(['dni' => NULL]);
         //comprobar codigo de respuesta
         $this->post(route('createEmployee'),$employee->toArray(),['Authorization' => 'PDQFWb29LPWcf0gsUJpeZksVjUSf7Jnc'])
@@ -128,11 +128,11 @@ class CreateEmployeeTest extends TestCase
     * @test 
     * @author Luque Ayala Alexis
     * @testdox El siguiente test es para la creación de 
-    * empleados cuando se envia un id de un perfil vacio el cual debe
+    * empleados cuando se envia un id de un un empleado vacio el cual debe
     * responder con un mensaje de error
     */
     public function invalid_create_employee_with_empty_profile_id(){
-        //Creamos perfil con tipo invalido en name
+        //Creamos un empleado con tipo invalido en name
         $employee=factory('App\Employee')->make(['profile_id' => NULL]);
         //comprobar codigo de respuesta
         $this->post(route('createEmployee'),$employee->toArray(),['Authorization' => 'PDQFWb29LPWcf0gsUJpeZksVjUSf7Jnc'])
@@ -148,7 +148,7 @@ class CreateEmployeeTest extends TestCase
     }
 
     /**************************************************
-    *             REQUIRED FIELDS
+    *                  REQUIRED FIELDS
     **************************************************/
 
     /**
@@ -159,7 +159,7 @@ class CreateEmployeeTest extends TestCase
     * de que sea unico
     */
     public function invalid_create_of_employee_with_repeated_dni(){
-        // Creamos perfil con tipo invalido en name
+        // Creamos un empleado con tipo invalido en name
         $employee=factory('App\Employee')->create();
         //comprobar codigo de respuesta
         $this->post(route('createEmployee'), ['dni'=>$employee->dni], ['Authorization' => 'PDQFWb29LPWcf0gsUJpeZksVjUSf7Jnc'])
@@ -182,7 +182,7 @@ class CreateEmployeeTest extends TestCase
     * de que sea unico
     */
     public function invalid_create_of_employee_with_repeated_code(){
-        // Creamos perfil con tipo invalido en name
+        // Creamos un empleado con tipo invalido en name
         $employee=factory('App\Employee')->create();
         //comprobar codigo de respuesta
         $this->post(route('createEmployee'), ['code'=>$employee->code], ['Authorization' => 'PDQFWb29LPWcf0gsUJpeZksVjUSf7Jnc'])
@@ -205,7 +205,7 @@ class CreateEmployeeTest extends TestCase
     * de que sea unico
     */
     public function invalid_create_of_employee_with_repeated_email(){
-        // Creamos perfil con tipo invalido en email
+        // Creamos un empleado con tipo invalido en email
         $employee=factory('App\Employee')->create();
         //comprobar codigo de respuesta
         $this->post(route('createEmployee'), ['email'=>$employee->email], ['Authorization' => 'PDQFWb29LPWcf0gsUJpeZksVjUSf7Jnc'])
@@ -230,7 +230,7 @@ class CreateEmployeeTest extends TestCase
     * empleados cuando se envia un code con un dato de otro tipo
     */
     public function invalid_create_of_employee_with_incorrect_type_code(){
-        // Creamos perfil con tipo invalido en code
+        // Creamos un empleado con tipo invalido en code
         $employee=factory('App\Employee')->make(['code' => 2564]);
         //comprobar codigo de respuesta
         $this->post(route('createEmployee'),$employee->toArray(), ['Authorization' => 'PDQFWb29LPWcf0gsUJpeZksVjUSf7Jnc'])
@@ -252,7 +252,7 @@ class CreateEmployeeTest extends TestCase
     * empleados cuando se envia un names con un dato de otro tipo
     */
     public function invalid_create_of_employee_with_incorrect_type_names(){
-        // Creamos perfil con tipo invalido en names
+        // Creamos un empleado con tipo invalido en names
         $employee=factory('App\Employee')->make(['names' => 2564]);
         //comprobar codigo de respuesta
         $this->post(route('createEmployee'),$employee->toArray(), ['Authorization' => 'PDQFWb29LPWcf0gsUJpeZksVjUSf7Jnc'])
@@ -275,7 +275,7 @@ class CreateEmployeeTest extends TestCase
     * empleados cuando se envia un surname con un dato de otro tipo
     */
     public function invalid_create_of_employee_with_incorrect_type_surname(){
-        // Creamos perfil con tipo invalido en surname
+        // Creamos un empleado con tipo invalido en surname
         $employee=factory('App\Employee')->make(['surname' => 2564]);
         //comprobar codigo de respuesta
         $this->post(route('createEmployee'),$employee->toArray(), ['Authorization' => 'PDQFWb29LPWcf0gsUJpeZksVjUSf7Jnc'])
@@ -298,7 +298,7 @@ class CreateEmployeeTest extends TestCase
     * empleados cuando se envia un date_of_birth con un dato de otro tipo
     */
     public function invalid_create_of_employee_with_incorrect_type_date_of_birth(){
-        // Creamos perfil con tipo invalido en date_of_birth
+        // Creamos un empleado con tipo invalido en date_of_birth
         $employee=factory('App\Employee')->make(['date_of_birth' => 2564]);
         //comprobar codigo de respuesta
         $this->post(route('createEmployee'),$employee->toArray(), ['Authorization' => 'PDQFWb29LPWcf0gsUJpeZksVjUSf7Jnc'])
@@ -320,7 +320,7 @@ class CreateEmployeeTest extends TestCase
     * empleados cuando se envia un gender con un dato de otro tipo
     */
     public function invalid_create_of_employee_with_incorrect_type_gender(){
-        // Creamos perfil con tipo invalido en gende
+        // Creamos un empleado con tipo invalido en gende
         $employee=factory('App\Employee')->make(['gender' => 2564]);
         //comprobar codigo de respuesta
         $this->post(route('createEmployee'),$employee->toArray(), ['Authorization' => 'PDQFWb29LPWcf0gsUJpeZksVjUSf7Jnc'])
@@ -342,7 +342,7 @@ class CreateEmployeeTest extends TestCase
     * empleados cuando se envia un gaddress con un dato de otro tipo
     */
     public function invalid_create_of_employee_with_incorrect_type_address(){
-        // Creamos perfil con tipo invalido en address
+        // Creamos un empleado con tipo invalido en address
         $employee=factory('App\Employee')->make(['address' => 2564]);
         //comprobar codigo de respuesta
         $this->post(route('createEmployee'),$employee->toArray(), ['Authorization' => 'PDQFWb29LPWcf0gsUJpeZksVjUSf7Jnc'])
@@ -364,7 +364,7 @@ class CreateEmployeeTest extends TestCase
     * empleados cuando se envia un email con un dato de otro tipo
     */
     public function invalid_create_of_employee_with_incorrect_type_email(){
-        // Creamos perfil con tipo invalido en email
+        // Creamos un empleado con tipo invalido en email
         $employee=factory('App\Employee')->make(['email' => 2564]);
         //comprobar codigo de respuesta
         $this->post(route('createEmployee'),$employee->toArray(), ['Authorization' => 'PDQFWb29LPWcf0gsUJpeZksVjUSf7Jnc'])
@@ -386,7 +386,7 @@ class CreateEmployeeTest extends TestCase
     * empleados cuando se envia un dni con un dato de otro tipo
     */
     public function invalid_create_of_employee_with_incorrect_type_dni(){
-        // Creamos perfil con tipo invalido en dni
+        // Creamos un empleado con tipo invalido en dni
         $employee=factory('App\Employee')->make(['dni' => false]);
         //comprobar codigo de respuesta
         $this->post(route('createEmployee'),$employee->toArray(), ['Authorization' => 'PDQFWb29LPWcf0gsUJpeZksVjUSf7Jnc'])
@@ -408,7 +408,7 @@ class CreateEmployeeTest extends TestCase
     * empleados cuando se envia un profile_id con un dato de otro tipo
     */
     public function invalid_create_of_employee_with_incorrect_type_profile_id(){
-        // Creamos perfil con tipo invalido en profile_id
+        // Creamos un empleado con tipo invalido en profile_id
         $employee=factory('App\Employee')->make(['profile_id' => false]);
         //comprobar codigo de respuesta
         $this->post(route('createEmployee'),$employee->toArray(), ['Authorization' => 'PDQFWb29LPWcf0gsUJpeZksVjUSf7Jnc'])
@@ -427,10 +427,10 @@ class CreateEmployeeTest extends TestCase
     * @test 
     * @author Luque Ayala Alexis
     * @testdox El siguiente test es para la creación de 
-    * empleados cuando se envia un phone con un dato de otro tipo
+    * empleados cuando se envia en el campo phone con un dato de otro tipo
     */
     public function invalid_create_of_employee_with_incorrect_type_phone(){
-        // Creamos perfil con tipo invalido en profile_id
+        // Creamos un empleado con tipo invalido en profile_id
         $employee=factory('App\Employee')->make(['phone' => false]);
         //comprobar codigo de respuesta
         $this->post(route('createEmployee'),$employee->toArray(), ['Authorization' => 'PDQFWb29LPWcf0gsUJpeZksVjUSf7Jnc'])
@@ -449,10 +449,10 @@ class CreateEmployeeTest extends TestCase
     * @test 
     * @author Luque Ayala Alexis
     * @testdox El siguiente test es para la creación de 
-    * empleados cuando se envia un mobile con un dato de otro tipo
+    * empleados cuando se envia en el campo mobile con un dato de otro tipo
     */
     public function invalid_create_of_employee_with_incorrect_type_mobile(){
-        // Creamos perfil con tipo invalido en mobile
+        // Creamos un empleado con tipo invalido en mobile
         $employee=factory('App\Employee')->make(['mobile' => "ss"]);
         //comprobar codigo de respuesta
         $this->post(route('createEmployee'),$employee->toArray(), ['Authorization' => 'PDQFWb29LPWcf0gsUJpeZksVjUSf7Jnc'])
@@ -477,7 +477,7 @@ class CreateEmployeeTest extends TestCase
     * empleados cuando se envia un profile_id con un dato de otro tipo
     */
     public function invalid_create_of_employee_with_value_negative_in_profile_id(){
-        // Creamos perfil con tipo invalido en profile_id
+        // Creamos un empleado con tipo invalido en profile_id
         $employee=factory('App\Employee')->make(['profile_id' => -1]);
         //comprobar codigo de respuesta
         $this->post(route('createEmployee'),$employee->toArray(), ['Authorization' => 'PDQFWb29LPWcf0gsUJpeZksVjUSf7Jnc'])
@@ -499,7 +499,7 @@ class CreateEmployeeTest extends TestCase
     * empleados cuando se envia un dni con una cantidad de digitod distinta a 8
     */
     public function invalid_create_of_employee_with_amount_digits_different_8_in_dni(){
-        // Creamos perfil con tipo invalido en dni
+        // Creamos un empleado con tipo invalido en dni
         $employee=factory('App\Employee')->make(['dni' => 7895641]);
         //comprobar codigo de respuesta
         $this->post(route('createEmployee'),$employee->toArray(), ['Authorization' => 'PDQFWb29LPWcf0gsUJpeZksVjUSf7Jnc'])
@@ -521,7 +521,7 @@ class CreateEmployeeTest extends TestCase
     * empleados cuando se envia un mobile con una cantidad de digitos distinta a 9
     */
     public function invalid_create_of_employee_with_amount_digits_different_9_in_mobile(){
-        // Creamos perfil con tipo invalido en mobile
+        // Creamos un empleado con tipo invalido en mobile
         $employee=factory('App\Employee')->make(['mobile' => 7895641]);
         //comprobar codigo de respuesta
         $this->post(route('createEmployee'),$employee->toArray(), ['Authorization' => 'PDQFWb29LPWcf0gsUJpeZksVjUSf7Jnc'])
@@ -543,7 +543,7 @@ class CreateEmployeeTest extends TestCase
     * empleados cuando se envia un phone con una cantidad de digitos fuera del rango de a 7 a 10 digitos
     */
     public function invalid_create_of_employee_with_amount_digits_out_of_between_7_and_10_in_phone(){
-        // Creamos perfil con tipo invalido en phone
+        // Creamos un empleado con tipo invalido en phone
         $employee=factory('App\Employee')->make(['phone' => 789]);
         //comprobar codigo de respuesta
         $this->post(route('createEmployee'),$employee->toArray(), ['Authorization' => 'PDQFWb29LPWcf0gsUJpeZksVjUSf7Jnc'])
