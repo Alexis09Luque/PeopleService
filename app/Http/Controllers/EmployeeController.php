@@ -32,6 +32,57 @@ class EmployeeController extends Controller
     }
 
     /**
+     * Return Employees list for parameter
+     *
+     * @return  Illuminate\Http\Response
+     */
+    public function search(Request $request){
+        
+       
+        $keys = [
+            'names',
+            'surname',
+            'dni',
+            'page',
+            'limit',
+        ];
+        if($request->anyFilled($keys)){
+            $employee = Employee::where('names', 'LIKE', "%$request->names%")
+                    ->orWhere('surname', 'LIKE', "%$request->surname%")
+                    ->orWhere('dni', 'LIKE', "%$request->dni%")
+                    ->paginate($request->limit); 
+
+            $employee->current_page = $request->page;
+
+        }else{
+            $employee = Employee::all();
+        }
+
+        /*if($request->has('names')){
+            $query = $request->names;
+            $employee = Employee::where('names', 'LIKE', "%$query%")
+                        ->paginate($request->limit);        
+        }
+
+        if($request->has('surname')){
+            $query = $request->surname;
+            $employee = Employee::where('surname', 'LIKE', "%$query%")
+                        ->paginate($request->limit);           
+        }
+
+        if($request->has('dni')){
+            $query = $request->names;
+            $employee = Employee::where('dni', 'LIKE', "%$query%")
+                        ->paginate($request->limit);         
+        }*/
+
+        
+
+        return $this->successResponse($employee);
+         
+    }
+
+    /**
      * Create an instance of Employee
      *
      * @return  Illuminate\Http\Response

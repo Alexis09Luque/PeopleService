@@ -12,6 +12,7 @@
 */
 
 $router->get('/employees', 'EmployeeController@index');
+$router->get('/search', 'EmployeeController@search');
 $router->post('/employees', ['as' => 'createEmployee', 'uses' =>'EmployeeController@store']);
 $router->get('/employees/{id}', 'EmployeeController@show');
 $router->put("/employees/{id}",['as' => 'updateAnEmployee', 'uses' => 'EmployeeController@update']);
