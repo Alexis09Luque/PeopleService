@@ -43,10 +43,18 @@ class EmployeeController extends Controller
             'names',
             'surname',
             'dni',
-            'page',
-            'limit',
         ];
-        if($request->anyFilled($keys)){
+
+        
+        if(($request->anyFilled($keys))){
+            $numberPage = ceil(Employee::all()->count()/$request->limit);
+            //echo($numberPage);
+            $rules = [
+                'page' =>"integer|between:1,$numberPage", 
+            ];
+        
+            $this->validate($request,$rules);
+
             $employee = Employee::where('names', 'LIKE', "%$request->names%")
                     ->orWhere('surname', 'LIKE', "%$request->surname%")
                     ->orWhere('dni', 'LIKE', "%$request->dni%")
