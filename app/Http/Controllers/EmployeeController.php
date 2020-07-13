@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Employee;
 use App\Traits\ApiResponser;
+use Fouladgar\EloquentBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -37,58 +38,103 @@ class EmployeeController extends Controller
      * @return  Illuminate\Http\Response
      */
     public function search(Request $request){
-        
-       
+        //campos por los cuales se podrá realizar búsqueda
         $keys = [
             'names',
             'surname',
             'dni',
         ];
 
-        
+        $numberPage = ceil(Employee::all()->count()/abs($request->limit));
+        $rules = [
+            'page'  =>"integer|min:1|max:$numberPage", 
+            'limit' =>'integer|min:1',
+        ];
+        $this->validate($request,$rules);
+            
         if(($request->anyFilled($keys))){
-            $numberPage = ceil(Employee::all()->count()/$request->limit);
-            //echo($numberPage);
+            $query_names=$request->names;
+            $query_surname=$request->surname;
+            $query_dni=$request->dni;
+            $quantity_found = Employee::where('names', 'LIKE', "%$query_names%")
+                                        ->orWhere('surname', 'LIKE', "%$query_surname%")
+                                        ->orWhere('dni', 'LIKE', "%$query_dni%")
+                                        ->count();
+            if($quantity_found == 0){
+                return $this->errorResponse("The specified resource was not found",
+                Response::HTTP_NOT_FOUND);
+            }
+            //la pagina se vuelve a validar cuando se hace la busqueda y que no ingrese una página
+            //mayor  a las que encontramos 
+            $page_max = ceil($quantity_found/$request->limit);
+
             $rules = [
-                'page' =>"integer|between:1,$numberPage", 
+                'page'  =>"integer|min:1|max:$page_max", 
             ];
-        
+
             $this->validate($request,$rules);
-
-            $employee = Employee::where('names', 'LIKE', "%$request->names%")
-                    ->orWhere('surname', 'LIKE', "%$request->surname%")
-                    ->orWhere('dni', 'LIKE', "%$request->dni%")
-                    ->paginate($request->limit); 
-
-            $employee->current_page = $request->page;
+            
+            $employee = Employee::where('names', 'LIKE', "%$query_names%")
+                                ->orWhere('surname', 'LIKE', "%$query_surname%")
+                                ->orWhere('dni', 'LIKE', "%$query_dni%")
+                                ->paginate($request->limit); 
 
         }else{
-            $employee = Employee::all();
+            $employee = Employee::all()
+                        ->paginate($request->limit); 
         }
 
-        /*if($request->has('names')){
-            $query = $request->names;
-            $employee = Employee::where('names', 'LIKE', "%$query%")
-                        ->paginate($request->limit);        
-        }
-
-        if($request->has('surname')){
-            $query = $request->surname;
-            $employee = Employee::where('surname', 'LIKE', "%$query%")
-                        ->paginate($request->limit);           
-        }
-
-        if($request->has('dni')){
-            $query = $request->names;
-            $employee = Employee::where('dni', 'LIKE', "%$query%")
-                        ->paginate($request->limit);         
-        }*/
-
-        
+        $employee->current_page = $request->page;
 
         return $this->successResponse($employee);
          
     }
+
+    /**
+     * Return Employees list for filter
+     *
+     * @return  Illuminate\Http\Response
+     */
+    public function searchFilter(Request $request){
+        
+       
+        //$users = EloquentBuilder::to(Employee::class, $request->all());
+
+        return $users->get();
+        /*if($request->has('names')){
+            $query = $request->names;
+            $employee  = Employee::all();
+            $employee->where('names','LIKE', "%$query%");   
+                               
+        }
+
+        if($request->has('surname')){
+            $query = $request->surname;
+            $employee = $employee->merge($employee->where('surname', 'LIKE', "%$query%"));        
+        }
+
+        if($request->has('dni')){
+            $query = $request->names;
+            $employeeD = Employee::where('dni', 'LIKE', "%$query%");
+                        //->paginate($request->limit);
+            $employee = $employeeD->merge();         
+        }*/
+        //$employee = $employee->all();
+        $employee = Employee::all();
+
+        if ($request->has('names')) {
+            $employee->where('name', 'LIKE', $request->names);
+        }
+
+        if ($request->has('surname')) {
+            $employee->where('surname','LIKE', $request->surname);
+        }
+
+        return $this->successResponse($employee);
+         
+    }
+
+
 
     /**
      * Create an instance of Employee
