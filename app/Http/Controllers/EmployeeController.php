@@ -38,54 +38,37 @@ class EmployeeController extends Controller
      * @return  Illuminate\Http\Response
      */
     public function search(Request $request){
-        //campos por los cuales se podrá realizar búsqueda
-        $keys = [
-            'names',
-            'surname',
-            'dni',
-        ];
-
-        $numberPage = ceil(Employee::all()->count()/abs($request->limit));
+        $total = Employee::all()->count();
         $rules = [
-            'page'  =>"integer|min:1|max:$numberPage", 
-            'limit' =>'integer|min:1',
+            'page'  =>'integer|min:1', 
+            'limit' =>"integer|min:1|max:$total",
         ];
         $this->validate($request,$rules);
             
-        if(($request->anyFilled($keys))){
-            $query_names=$request->names;
-            $query_surname=$request->surname;
-            $query_dni=$request->dni;
-            $quantity_found = Employee::where('names', 'LIKE', "%$query_names%")
-                                        ->orWhere('surname', 'LIKE', "%$query_surname%")
-                                        ->orWhere('dni', 'LIKE', "%$query_dni%")
+        if($request->has('quest')){
+            $query = $request->quest;
+            $quantity_found = Employee::where('names', 'LIKE', "%$query%")
+                                        ->orWhere('surname', 'LIKE', "%$query%")
+                                        ->orWhere('dni', 'LIKE', "%$query%")
                                         ->count();
-            if($quantity_found == 0){
-                return $this->errorResponse("The specified resource was not found",
-                Response::HTTP_NOT_FOUND);
+            if($quantity_found != 0){
+                $page_max = ceil($quantity_found/$request->limit);
+                $this->validate($request,['page'  =>"integer|max:$page_max"]);
             }
-            //la pagina se vuelve a validar cuando se hace la busqueda y que no ingrese una página
-            //mayor  a las que encontramos 
-            $page_max = ceil($quantity_found/$request->limit);
-
-            $rules = [
-                'page'  =>"integer|min:1|max:$page_max", 
-            ];
-
-            $this->validate($request,$rules);
             
-            $employee = Employee::where('names', 'LIKE', "%$query_names%")
-                                ->orWhere('surname', 'LIKE', "%$query_surname%")
-                                ->orWhere('dni', 'LIKE', "%$query_dni%")
+            
+            $employee = Employee::where('names', 'LIKE', "%$query%")
+                                ->orWhere('surname', 'LIKE', "%$query%")
+                                ->orWhere('dni', 'LIKE', "%$query%")
                                 ->paginate($request->limit); 
 
         }else{
-            $employee = Employee::all()
-                        ->paginate($request->limit); 
+            $page_max = ceil($total/$request->limit);
+            $this->validate($request,['page'  => "integer|max:$page_max"]);
+            $employee = Employee::paginate($request->limit); 
         }
 
         $employee->current_page = $request->page;
-
         return $this->successResponse($employee);
          
     }
