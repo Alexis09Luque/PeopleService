@@ -128,5 +128,31 @@ class EmployeeController extends Controller
 
     }
 
+    /**
+     * Return Employees list paginatation
+     *
+     * @return  Illuminate\Http\Response
+     */
+    public function pagination(Request $request){
+        $total = Employee::all()->count();
+        $rules = [
+            'page'  =>'integer|min:1', 
+            'limit' =>"integer|min:1|max:$total",
+        ];
+
+        $this->validate($request,$rules);
+        
+        $page_max = ceil($total/$request->limit);
+
+        $this->validate($request,['page'  => "integer|max:$page_max"]);
+        
+        $employee = Employee::paginate($request->limit); 
+    
+        $employee->current_page = $request->page;
+        return $this->successResponse($employee);
+         
+    }
+
+
     //
 }
