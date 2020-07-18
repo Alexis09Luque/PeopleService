@@ -83,7 +83,7 @@ class EmployeeController extends Controller
        
         //$users = EloquentBuilder::to(Employee::class, $request->all());
 
-        return $users->get();
+        //return $users->get();
         /*if($request->has('names')){
             $query = $request->names;
             $employee  = Employee::all();

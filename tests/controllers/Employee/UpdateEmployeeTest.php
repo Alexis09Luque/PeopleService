@@ -5,7 +5,7 @@ use Laravel\Lumen\Testing\DatabaseMigrations;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 
-class UpdateemployeeTest extends TestCase
+class UpdateEmployeeTest extends TestCase
 {
     /*
     *Trait to callback the BD
