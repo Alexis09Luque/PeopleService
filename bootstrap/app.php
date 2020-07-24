@@ -82,12 +82,16 @@ $app->middleware([
 | totally optional, so you are not required to uncomment this line.
 |
 */
+$app->configure('eloquent-builder');
+$app->register(\Fouladgar\EloquentBuilder\LumenServiceProvider::class);
 
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
 $app->register(Illuminate\Filesystem\FilesystemServiceProvider::class);
+
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes

@@ -3,7 +3,7 @@
 use Illuminate\Http\Response;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 
-class DeleteProfileTest extends TestCase
+class DeleteEmployeeTest extends TestCase
 {
     /*
     *Trait to callback the BD
@@ -34,7 +34,7 @@ class DeleteProfileTest extends TestCase
         $this->seeJsonStructure([
             'data',
             'code',
-            'type,'
+            'type'
         ]);
 
         //validando que no se encuentre registrado en la base de datos

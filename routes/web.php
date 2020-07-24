@@ -11,6 +11,7 @@
 |
 */
 
+$router->get('/employees/search', ['as' => 'searchEmployee', 'uses' =>'EmployeeController@search']);
 $router->get('/employees', ['as' => 'showAllEmployees','uses'=>'EmployeeController@index']);
 $router->post('/employees', ['as' => 'createEmployee', 'uses' =>'EmployeeController@store']);
 $router->get('/employees/{id}', 'EmployeeController@show');
