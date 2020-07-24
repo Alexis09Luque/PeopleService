@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Employee;
 use App\Traits\ApiResponser;
+use Fouladgar\EloquentBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -30,6 +31,93 @@ class EmployeeController extends Controller
         $employees = Employee::all();
         return $this->successResponse($employees);
     }
+
+    /**
+     * Return Employees list for parameter
+     *
+     * @return  Illuminate\Http\Response
+     */
+    public function search(Request $request){
+        $total = Employee::all()->count();
+        $rules = [
+            'page'  =>'integer|min:1', 
+            'limit' =>"integer|min:1|max:$total",
+        ];
+        $this->validate($request,$rules);
+            
+        if($request->has('quest')){
+            $query = $request->quest;
+            $quantity_found = Employee::where('names', 'LIKE', "%$query%")
+                                        ->orWhere('surname', 'LIKE', "%$query%")
+                                        ->orWhere('dni', 'LIKE', "%$query%")
+                                        ->count();
+            if($quantity_found != 0){
+                $page_max = ceil($quantity_found/$request->limit);
+                $this->validate($request,['page'  =>"integer|max:$page_max"]);
+            }
+            
+            
+            $employee = Employee::where('names', 'LIKE', "%$query%")
+                                ->orWhere('surname', 'LIKE', "%$query%")
+                                ->orWhere('dni', 'LIKE', "%$query%")
+                                ->paginate($request->limit); 
+
+        }else{
+            $page_max = ceil($total/$request->limit);
+            $this->validate($request,['page'  => "integer|max:$page_max"]);
+            $employee = Employee::paginate($request->limit); 
+        }
+
+        $employee->current_page = $request->page;
+        return $this->successResponse($employee);
+         
+    }
+
+    /**
+     * Return Employees list for filter
+     *
+     * @return  Illuminate\Http\Response
+     */
+    public function searchFilter(Request $request){
+        
+       
+        //$users = EloquentBuilder::to(Employee::class, $request->all());
+
+        //return $users->get();
+        /*if($request->has('names')){
+            $query = $request->names;
+            $employee  = Employee::all();
+            $employee->where('names','LIKE', "%$query%");   
+                               
+        }
+
+        if($request->has('surname')){
+            $query = $request->surname;
+            $employee = $employee->merge($employee->where('surname', 'LIKE', "%$query%"));        
+        }
+
+        if($request->has('dni')){
+            $query = $request->names;
+            $employeeD = Employee::where('dni', 'LIKE', "%$query%");
+                        //->paginate($request->limit);
+            $employee = $employeeD->merge();         
+        }*/
+        //$employee = $employee->all();
+        $employee = Employee::all();
+
+        if ($request->has('names')) {
+            $employee->where('name', 'LIKE', $request->names);
+        }
+
+        if ($request->has('surname')) {
+            $employee->where('surname','LIKE', $request->surname);
+        }
+
+        return $this->successResponse($employee);
+         
+    }
+
+
 
     /**
      * Create an instance of Employee
@@ -127,6 +215,32 @@ class EmployeeController extends Controller
         return $this->successResponse($employee);
 
     }
+
+    /**
+     * Return Employees list paginatation
+     *
+     * @return  Illuminate\Http\Response
+     */
+    public function pagination(Request $request){
+        $total = Employee::all()->count();
+        $rules = [
+            'page'  =>'integer|min:1', 
+            'limit' =>"integer|min:1|max:$total",
+        ];
+
+        $this->validate($request,$rules);
+        
+        $page_max = ceil($total/$request->limit);
+
+        $this->validate($request,['page'  => "integer|max:$page_max"]);
+        
+        $employee = Employee::paginate($request->limit); 
+    
+        $employee->current_page = $request->page;
+        return $this->successResponse($employee);
+         
+    }
+
 
     //
 }
