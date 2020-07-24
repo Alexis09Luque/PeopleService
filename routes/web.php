@@ -17,6 +17,9 @@ $router->get('/employees/{id}', 'EmployeeController@show');
 $router->put("/employees/{id}",['as' => 'updateAnEmployee', 'uses' => 'EmployeeController@update']);
 $router->patch("/employees/{id}",['as' => 'updateAnEmployee', 'uses' => 'EmployeeController@update',]);
 $router->delete('/employees/{id}', 'EmployeeController@destroy');
+$router->get('/employees/pagination', ['as' => 'paginationEmployee', 'uses' =>'EmployeeController@pagination']);
+
+
 
 
 $router->get('/applicants', 'ApplicantController@index');
