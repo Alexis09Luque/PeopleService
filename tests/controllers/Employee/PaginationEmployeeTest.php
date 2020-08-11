@@ -21,7 +21,7 @@ class PaginationEmployeeTest extends TestCase
      */
     public function should_return_an_amount_of_employe_pagination(){
         //ingresar resgitros de empleados
-        $employee = factory('App\Employee')->create();
+        $employee = factory('App\Models\Employee')->create();
 
         $this->seeInDatabase('employees', $employee->toArray());
         //comprobar codigo de respuesta
@@ -67,7 +67,7 @@ class PaginationEmployeeTest extends TestCase
      */
     public function invalid_pagination_of_employee_with_value_smaller_than_1_in_field_limit(){
         //ingresar resgitros de empleados
-        $employee = factory('App\Employee')->create();
+        $employee = factory('App\Models\Employee')->create();
 
         $this->seeInDatabase('employees', $employee->toArray());
         //comprobar codigo de respuesta
@@ -91,7 +91,7 @@ class PaginationEmployeeTest extends TestCase
     */
     public function invalid_pagination_of_employee_with_incorrect_type_limit(){
         //ingresar resgitros de empleados
-        $employee = factory('App\Employee')->create();
+        $employee = factory('App\Models\Employee')->create();
 
         $this->seeInDatabase('employees', $employee->toArray());
         //comprobar codigo de respuesta
@@ -119,7 +119,7 @@ class PaginationEmployeeTest extends TestCase
      */
     public function invalid_pagination_of_employee_with_value_smaller_than_1_in_field_page(){
         //ingresar resgitros de empleados
-        $employee = factory('App\Employee')->create();
+        $employee = factory('App\Models\Employee')->create();
 
         $this->seeInDatabase('employees', $employee->toArray());
         //comprobar codigo de respuesta
@@ -143,7 +143,7 @@ class PaginationEmployeeTest extends TestCase
     */
     public function invalid_pagination_of_employee_with_incorrect_type_page(){
         //ingresar resgitros de empleados
-        $employee = factory('App\Employee')->create();
+        $employee = factory('App\Models\Employee')->create();
 
         $this->seeInDatabase('employees', $employee->toArray());
         //comprobar codigo de respuesta

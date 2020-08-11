@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e8f5e4ca9410ca5d0490ef0f70909289",
+    "content-hash": "6c8afefb4000656b6741aee8deea9bd1",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -1590,16 +1590,16 @@
         },
         {
             "name": "mohammad-fouladgar/eloquent-builder",
-            "version": "v2.2.0",
+            "version": "v2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mohammad-fouladgar/eloquent-builder.git",
-                "reference": "4dabd540d74799339687eb19f6d3605ee49e99b3"
+                "reference": "bffcebaae88997d379f1946e728076d769ad145b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mohammad-fouladgar/eloquent-builder/zipball/4dabd540d74799339687eb19f6d3605ee49e99b3",
-                "reference": "4dabd540d74799339687eb19f6d3605ee49e99b3",
+                "url": "https://api.github.com/repos/mohammad-fouladgar/eloquent-builder/zipball/bffcebaae88997d379f1946e728076d769ad145b",
+                "reference": "bffcebaae88997d379f1946e728076d769ad145b",
                 "shasum": ""
             },
             "require": {
@@ -1648,7 +1648,7 @@
                 "lumen",
                 "search"
             ],
-            "time": "2020-03-04T11:29:07+00:00"
+            "time": "2020-07-13T12:50:29+00:00"
         },
         {
             "name": "monolog/monolog",

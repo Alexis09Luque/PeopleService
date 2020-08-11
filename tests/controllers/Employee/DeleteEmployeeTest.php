@@ -23,14 +23,15 @@ class DeleteEmployeeTest extends TestCase
      */
     public function should_delete_an_employee(){
         //ingresar resgitros de empleados
-        $employee = factory('App\Employee')->create();
+        $employee = factory('App\Models\Employee')->create();
 
         $this->seeInDatabase('employees', $employee->toArray());
         
         //comprobar codigo de respuesta
-        $this->delete(route('deleteAnEmployee',['id' => $employee->id]),['Authorization' => 'PDQFWb29LPWcf0gsUJpeZksVjUSf7Jnc'])
+        $this->delete(route('deleteAnEmployee',['id' => $employee->id]),[],['Authorization' => 'PDQFWb29LPWcf0gsUJpeZksVjUSf7Jnc'])
         ->assertResponseStatus(Response::HTTP_OK);
-        //comprobar estructura de respuesta
+        
+        
         $this->seeJsonStructure([
             'data',
             'code',

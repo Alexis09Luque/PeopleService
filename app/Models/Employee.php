@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Applicant extends Model 
+class Employee extends Model 
 {
     
 
@@ -15,19 +15,17 @@ class Applicant extends Model
      */
     protected $fillable = [
         'dni', 
+        'code',
         'names',
         'surname',
-        'gender',
-        'type',
-        'institutional_email',
-        'photo',
-        'code',
-        'school_id',
+        'profile_id',
+        'date_of_birth',
         'phone',
         'mobile',
-        'personal_email',
+        'gender',
         'address',
-        'description'
+        'email',
+        'photo'
 
     ];
 
