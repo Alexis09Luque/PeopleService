@@ -21,7 +21,7 @@ class SearchEmployeeTest extends TestCase
      */
     public function should_return_an_employe_searched_to_name(){
         //ingresar resgitros de empleados
-        $employee = factory('App\Employee')->create();
+        $employee = factory('App\Models\Employee')->create();
 
         $this->seeInDatabase('employees', $employee->toArray());
         //comprobar codigo de respuesta
@@ -59,7 +59,7 @@ class SearchEmployeeTest extends TestCase
      */
     public function should_return_an_employe_searched_to_surname(){
         //ingresar resgitros de empleados
-        $employee = factory('App\Employee')->create();
+        $employee = factory('App\Models\Employee')->create();
 
         $this->seeInDatabase('employees', $employee->toArray());
         //comprobar codigo de respuesta
@@ -96,7 +96,7 @@ class SearchEmployeeTest extends TestCase
      */
     public function should_return_an_employe_searched_to_dni(){
         //ingresar resgitros de empleados
-        $employee = factory('App\Employee')->create();
+        $employee = factory('App\Models\Employee')->create();
 
         $this->seeInDatabase('employees', $employee->toArray());
         //comprobar codigo de respuesta
@@ -135,7 +135,7 @@ class SearchEmployeeTest extends TestCase
      */
     public function should_not_return_an_employe_searched_whithout_field_quest(){
         //ingresar resgitros de empleados
-        $employee = factory('App\Employee')->create();
+        $employee = factory('App\Models\Employee')->create();
 
         $this->seeInDatabase('employees', $employee->toArray());
         //comprobar codigo de respuesta
@@ -177,7 +177,7 @@ class SearchEmployeeTest extends TestCase
      */
     public function invalid_search_of_employee_with_value_smaller_than_1_in_field_limit(){
         //ingresar resgitros de empleados
-        $employee = factory('App\Employee')->create();
+        $employee = factory('App\Models\Employee')->create();
 
         $this->seeInDatabase('employees', $employee->toArray());
         //comprobar codigo de respuesta
@@ -201,7 +201,7 @@ class SearchEmployeeTest extends TestCase
     */
     public function invalid_search_of_employee_with_incorrect_type_limit(){
         //ingresar resgitros de empleados
-        $employee = factory('App\Employee')->create();
+        $employee = factory('App\Models\Employee')->create();
 
         $this->seeInDatabase('employees', $employee->toArray());
         //comprobar codigo de respuesta
@@ -229,7 +229,7 @@ class SearchEmployeeTest extends TestCase
      */
     public function invalid_search_of_employee_with_value_smaller_than_1_in_field_page(){
         //ingresar resgitros de empleados
-        $employee = factory('App\Employee')->create();
+        $employee = factory('App\Models\Employee')->create();
 
         $this->seeInDatabase('employees', $employee->toArray());
         //comprobar codigo de respuesta
@@ -253,7 +253,7 @@ class SearchEmployeeTest extends TestCase
     */
     public function invalid_search_of_employee_with_incorrect_type_page(){
         //ingresar resgitros de empleados
-        $employee = factory('App\Employee')->create();
+        $employee = factory('App\Models\Employee')->create();
 
         $this->seeInDatabase('employees', $employee->toArray());
         //comprobar codigo de respuesta

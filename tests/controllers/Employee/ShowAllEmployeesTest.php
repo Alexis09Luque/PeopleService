@@ -28,7 +28,7 @@ class ShowAllEmployeesTest extends TestCase
 
     public function should_show_all_employees(){
         //ingresar resgitros de empleados
-        factory('App\Employee',3)->create();
+        factory('App\Models\Employee',3)->create();
         //comprobar codigo de respuesta
         $this->get(route('showAllEmployees'),['Authorization' => 'PDQFWb29LPWcf0gsUJpeZksVjUSf7Jnc'])
         ->assertResponseStatus(Response::HTTP_OK);

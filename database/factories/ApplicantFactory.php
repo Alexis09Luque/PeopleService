@@ -11,7 +11,7 @@
 |
 */
 
-$factory->define(App\Applicant::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Applicant::class, function (Faker\Generator $faker) {
     
 
     return [
