@@ -26,7 +26,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function should_update_an_employee(){
         //ingresar registro de empleados
-        $employee = factory('App\Employee')->create();
+        $employee = factory('App\Models\Employee')->create();
         //la data que será enviada para actualizar los datos del empleado
         $data = [
             'dni'=> '72959658', 
@@ -60,7 +60,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function should_update_an_employee_patch(){
         //ingresar registro de empleados
-        $employee = factory('App\Employee')->create();
+        $employee = factory('App\Models\Employee')->create();
         //data a cambiar
         $data = [
             'dni'=> '72959658', 
@@ -93,7 +93,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function should_changes_values_to_update_an_employee(){
         //ingresar registro de empleados
-        $employee = factory('App\Employee')->create();
+        $employee = factory('App\Models\Employee')->create();
         //data para actualizar
         $data = [
             'names' => $employee->names,
@@ -106,7 +106,7 @@ class UpdateEmployeeTest extends TestCase
         $this->seeJsonEquals([
             'error' => 'At least one value must change',
             'code' => Response::HTTP_UNPROCESSABLE_ENTITY,
-            'type' => 'S005'
+            'type' => 'E002'
         ]);
 
     }
@@ -124,7 +124,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function should_changes_values_to_update_an_employee_patch(){
         //ingresar registro de empleados
-        $employee = factory('App\Employee')->create();
+        $employee = factory('App\Models\Employee')->create();
         //data para actualizar
         $data = [
             'names' => $employee->names,
@@ -137,7 +137,7 @@ class UpdateEmployeeTest extends TestCase
         $this->seeJsonEquals([
             'error' => 'At least one value must change',
             'code' => Response::HTTP_UNPROCESSABLE_ENTITY,
-            'type' => 'S005'
+            'type' => 'E002'
         ]);
 
     }   
@@ -157,9 +157,9 @@ class UpdateEmployeeTest extends TestCase
     */
     public function invalid_update_of_employee_with_an_existiting_dni(){
         // Creamos un empleado del cual usaremos su datos 
-        $employee_data=factory('App\Employee')->create();
+        $employee_data=factory('App\Models\Employee')->create();
         // Creamos el empleado que se actualizará
-        $employee_update=factory('App\Employee')->create();
+        $employee_update=factory('App\Models\Employee')->create();
 
         $data = [
             'dni'=> $employee_data->dni,
@@ -188,9 +188,9 @@ class UpdateEmployeeTest extends TestCase
     */
     public function invalid_update_of_employee_with_an_existiting_dni_patch(){
         // Creamos un empleado del cual usaremos su datos 
-        $employee_data=factory('App\Employee')->create();
+        $employee_data=factory('App\Models\Employee')->create();
         // Creamos el empleado que se actualizará
-        $employee_update=factory('App\Employee')->create();
+        $employee_update=factory('App\Models\Employee')->create();
 
         $data = [
             'dni'=> $employee_data->dni,
@@ -218,7 +218,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_the_same_dni_and_other_changes(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'dni'=> $employee->dni,
@@ -246,7 +246,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_the_same_dni_and_other_changes_patch(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'dni'=> $employee->dni,
@@ -273,7 +273,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function invalid_update_of_employee_with_amount_digits_different_8_in_dni(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'dni'=> 156,
@@ -301,7 +301,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function invalid_update_of_employee_with_amount_digits_different_8_in_dni_patch(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'dni'=> 156,
@@ -330,7 +330,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_field_dni_null(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'names' => 'Jose Perez',
@@ -356,7 +356,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_field_dni_null_patch(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'names' => 'Jose Perez',
@@ -387,7 +387,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_field_surname_null(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'dni' => 45678978,
@@ -413,7 +413,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_field_surname_null_patch(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'dni' => 45678978,
@@ -444,7 +444,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_field_names_null(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'dni' => 45678978,
@@ -470,7 +470,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_field_names_null_patch(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'dni' => 45678978,
@@ -500,7 +500,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function invalid_update_of_employee_with_value_negative_to_field_profile_id(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
         $array = [
             -3,-2,-1,
         ];
@@ -532,7 +532,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function invalid_update_of_employee_with_value_negative_to_field_profile_id_patch(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
         $array = [
             -3,-2,-1,
         ];
@@ -564,7 +564,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function invalid_update_of_employee_with_value_zero_to_field_profile_id(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
         
         $data = [
             'profile_id'=> 0,
@@ -592,7 +592,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function invalid_update_of_employee_with_value_zero_to_field_profile_id_patch(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
         
         $data = [
             'profile_id'=> 0,
@@ -620,7 +620,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_field_profile_id_null(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'dni' => 45678978,
@@ -646,7 +646,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_field_profile_id_patch(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'dni' => 45678978,
@@ -677,7 +677,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_field_date_of_birth_null(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'dni' => 45678978,
@@ -703,7 +703,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_field_date_of_birth_null_patch(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'dni' => 45678978,
@@ -734,7 +734,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function invalid_update_of_employee_with_amount_greater_10_digits_in_field_phone(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'phone'=> 12345678901,
@@ -762,7 +762,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function invalid_update_of_employee_with_amount_greater_10_digits_in_field_phone_patch(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'phone'=> 12345678901,
@@ -791,7 +791,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function invalid_update_of_employee_with_amount_less_7_digits_in_field_phone(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'phone'=> 123456,
@@ -819,7 +819,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function invalid_update_of_employee_with_amount_less_7_digits_in_field_phone_patch(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'phone'=> 123456,
@@ -847,7 +847,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_field_phone_null(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'dni' => 45678978,
@@ -873,7 +873,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_field_phone_null_patch(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'dni' => 45678978,
@@ -904,7 +904,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function invalid_update_of_employee_with_amount_digits_different_9_in_mobile(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'mobile'=> 156,
@@ -933,7 +933,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function invalid_update_of_employee_with_amount_digits_different_9_in_mobile_patch(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'mobile'=> 156,
@@ -961,7 +961,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_field_mobile_null(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'dni' => 45678978,
@@ -987,7 +987,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_field_mobile_null_patch(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'dni' => 45678978,
@@ -1018,7 +1018,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function invalid_update_of_employee_with_value_different_to_F_or_M_in_field_gender(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
         $array = [
             "A","B","C","D","E","G","H","I","J","K","L",
             "N","Ñ","O","P","Q","R","S","T","U","V","W",
@@ -1053,7 +1053,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function invalid_update_of_employee_with_value_different_to_F_or_M_in_field_gender_patch(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
         $array = [
             "A","B","C","D","E","G","H","I","J","K","L",
             "N","Ñ","O","P","Q","R","S","T","U","V","W",
@@ -1086,7 +1086,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_field_gender_null(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'dni' => 45678978,
@@ -1112,7 +1112,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_field_gender_null_patch(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'dni' => 45678978,
@@ -1143,7 +1143,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_field_address_null(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'dni' => 45678978,
@@ -1169,7 +1169,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_field_address_null_patch(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'dni' => 45678978,
@@ -1198,7 +1198,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_field_email_null(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'dni' => 45678978,
@@ -1224,7 +1224,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_field_email_null_patch(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'dni' => 45678978,
@@ -1250,7 +1250,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function invalid_update_of_employee_with_value_different_to_format_email_to_field_email(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'email'=> "juan.jimenez.unmsm.edu.pe",
@@ -1278,7 +1278,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function invalid_update_of_employee_with_value_different_to_format_email_to_field_email_patch(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'email'=> "juan.jimenez.unmsm.edu.pe",
@@ -1309,7 +1309,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_field_photo_null(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'dni' => 45678978,
@@ -1335,7 +1335,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_field_photo_null_patch(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'dni' => 45678978,
@@ -1362,7 +1362,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_format_file_to_field_photo(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
        
         Storage::disk('local')->put('file.txt','Hello world');
@@ -1390,9 +1390,9 @@ class UpdateEmployeeTest extends TestCase
     */
     public function invalid_update_of_employee_with_an_existiting_code(){
         // Creamos une empleado del cual usaremos su datos 
-        $employee_data=factory('App\Employee')->create();
+        $employee_data=factory('App\Models\Employee')->create();
         // Creamos el empleado que se actualizará
-        $employee_update=factory('App\Employee')->create();
+        $employee_update=factory('App\Models\Employee')->create();
 
         $data = [
             'code'=> $employee_data->code,
@@ -1420,9 +1420,9 @@ class UpdateEmployeeTest extends TestCase
     */
     public function invalid_update_of_employee_with_an_existiting_code_patch(){
         // Creamos une empleado del cual usaremos su datos 
-        $employee_data=factory('App\Employee')->create();
+        $employee_data=factory('App\Models\Employee')->create();
         // Creamos el empleado que se actualizará
-        $employee_update=factory('App\Employee')->create();
+        $employee_update=factory('App\Models\Employee')->create();
 
         $data = [
             'code'=> $employee_data->code,
@@ -1450,7 +1450,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_the_same_code_and_other_changes(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'code'=> $employee->code,
@@ -1477,7 +1477,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_the_same_code_and_other_changes_patch(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'code'=> $employee->code,
@@ -1503,7 +1503,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_field_code_null(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'names' => 'Jose Perez',
@@ -1528,7 +1528,7 @@ class UpdateEmployeeTest extends TestCase
     */
     public function valid_update_of_employee_with_field_code_null_patch(){
         // Creamos el empleado que se actualizará
-        $employee=factory('App\Employee')->create();
+        $employee=factory('App\Models\Employee')->create();
 
         $data = [
             'names' => 'Jose Perez',

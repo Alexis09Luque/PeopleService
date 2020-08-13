@@ -11,7 +11,7 @@
 |
 */
 
-$factory->define(App\Employee::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Employee::class, function (Faker\Generator $faker) {
 
     return [
         'dni'=> $dni = $faker->unique()->ean8,

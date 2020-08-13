@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Employee;
+use App\Models\Employee;
 use App\Traits\ApiResponser;
 use Fouladgar\EloquentBuilder;
 use Illuminate\Http\Request;
@@ -37,7 +37,8 @@ class EmployeeController extends Controller
      *
      * @return  Illuminate\Http\Response
      */
-    public function search(Request $request){
+  
+     public function search(Request $request){
         $total = Employee::all()->count();
         $rules = [
             'page'  =>'integer|min:1', 
@@ -223,6 +224,7 @@ class EmployeeController extends Controller
      */
     public function pagination(Request $request){
         $total = Employee::all()->count();
+
         $rules = [
             'page'  =>'integer|min:1', 
             'limit' =>"integer|min:1|max:$total",

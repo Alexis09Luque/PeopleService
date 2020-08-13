@@ -11,14 +11,15 @@
 |
 */
 
+
+$router->get('/employees/pagination', ['as' => 'paginationEmployee', 'uses' =>'EmployeeController@pagination']);
 $router->get('/employees/search', ['as' => 'searchEmployee', 'uses' =>'EmployeeController@search']);
 $router->get('/employees', ['as' => 'showAllEmployees','uses'=>'EmployeeController@index']);
 $router->post('/employees', ['as' => 'createEmployee', 'uses' =>'EmployeeController@store']);
-$router->get('/employees/{id}', 'EmployeeController@show');
+$router->get('/employees/{id}',['as' => 'showAnEmployee', 'uses' => 'EmployeeController@show']);
 $router->put("/employees/{id}",['as' => 'updateAnEmployee', 'uses' => 'EmployeeController@update']);
-$router->patch("/employees/{id}",['as' => 'updateAnEmployee', 'uses' => 'EmployeeController@update',]);
-$router->delete('/employees/{id}', 'EmployeeController@destroy');
-$router->get('/employees/pagination', ['as' => 'paginationEmployee', 'uses' =>'EmployeeController@pagination']);
+$router->patch("/employees/{id}",['as' => 'updateAnEmployee', 'uses' => 'EmployeeController@update']);
+$router->delete("/employees/{id}", ['as' => 'deleteAnEmployee', 'uses' => 'EmployeeController@destroy']);
 
 
 
