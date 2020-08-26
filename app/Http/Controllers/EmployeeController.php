@@ -7,7 +7,11 @@ use App\Traits\ApiResponser;
 use Fouladgar\EloquentBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
+use Illuminate\Support\Facades\File;
+
+use Illuminate\Http\UploadedFile;
 class EmployeeController extends Controller
 {
     use ApiResponser;    
@@ -74,6 +78,7 @@ class EmployeeController extends Controller
          
     }
 
+
     /**
      * Return Employees list for filter
      *
@@ -117,16 +122,14 @@ class EmployeeController extends Controller
         return $this->successResponse($employee);
          
     }
-
-
-
     /**
      * Create an instance of Employee
      *
      * @return  Illuminate\Http\Response
      */
 
-     public function store(Request $request){
+    public function store(Request $request){
+        //validation 
         $rules = [
             'dni' =>'integer|required|unique:employees|digits:8', 
             'code' =>'string|nullable|unique:employees', 
@@ -144,8 +147,29 @@ class EmployeeController extends Controller
 
         $this->validate($request,$rules);
 
-        $employee = Employee::create($request->all());
-
+        //upload photo
+        $urlPhotoName = ($request->file('photo')!=null)?time().$request->file('photo')->getClientOriginalName():null;
+       
+        if($urlPhotoName!=null)
+            Storage::disk('localEmployees')->put($urlPhotoName,File::get($request->file('photo')));
+            
+        
+        //guardar en la BD
+        $employee = Employee::create([
+            'dni' => $request->dni, 
+            'code'=> $request->code, 
+            'names'=> $request->names, 
+            'surname'=> $request->surname, 
+            'profile_id'=> $request->profile_id, 
+            'date_of_birth'=> $request->date_of_birth, 
+            'phone'=> $request->phone, 
+            'mobile'=> $request->mobile, 
+            'gender'=> $request->gender, 
+            'address'=> $request->address, 
+            'email'=> $request->email, 
+            'photo'=> url("/")."/img/employees/".$urlPhotoName, 
+        ]);
+        //respuesta
         return $this->successResponse($employee, Response::HTTP_CREATED);
      }
 
@@ -242,6 +266,8 @@ class EmployeeController extends Controller
         return $this->successResponse($employee);
          
     }
+
+    
 
 
     //
