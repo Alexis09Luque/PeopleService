@@ -131,7 +131,7 @@ class EmployeeController extends Controller
     public function store(Request $request){
         //validation 
         $rules = [
-            'dni' =>'integer|required|unique:employees|digits:8', 
+            'dni' =>'numeric|required|unique:employees|digits:8', 
             'code' =>'string|nullable|unique:employees', 
             'names' =>'string|required|max:50', 
             'surname' =>'string|required|max:50',
@@ -142,7 +142,7 @@ class EmployeeController extends Controller
             'mobile' =>'integer|nullable|digits:9', 
             'address' =>'string|nullable', 
             'email' =>'string|nullable|unique:employees', 
-            'photo' => 'nullable'
+            'photo' => 'nullable|image'
         ];
 
         $this->validate($request,$rules);
@@ -150,8 +150,11 @@ class EmployeeController extends Controller
         //upload photo
         $urlPhotoName = ($request->file('photo')!=null)?time().$request->file('photo')->getClientOriginalName():null;
        
-        if($urlPhotoName!=null)
+        if($urlPhotoName!=null){
             Storage::disk('localEmployees')->put($urlPhotoName,File::get($request->file('photo')));
+            $urlPhotoName = url("/")."/img/employees/".$urlPhotoName;
+        }
+            
             
         
         //guardar en la BD
@@ -167,7 +170,7 @@ class EmployeeController extends Controller
             'gender'=> $request->gender, 
             'address'=> $request->address, 
             'email'=> $request->email, 
-            'photo'=> url("/")."/img/employees/".$urlPhotoName, 
+            'photo'=> $urlPhotoName, 
         ]);
         //respuesta
         return $this->successResponse($employee, Response::HTTP_CREATED);
@@ -194,26 +197,40 @@ class EmployeeController extends Controller
      */
 
     public function update(Request $request, $id){
-
+        //find employee
         $employee = Employee::findOrFail($id);
-
+        //rules
         $rules = [
-            'dni' =>"integer|unique:employees,dni,$id|digits:8", 
+            'dni' =>"numeric|unique:employees,dni,$id|digits:8", 
             'code' => "unique:employees,code,$id|nullable",
             'profile_id' =>'required_with:profile|integer|min:1', 
             'date_of_birth' =>'string|nullable', 
-            'phone' =>'integer|nullable|digits_between:7,10', 
+            'phone' =>'numeric|nullable|digits_between:7,10', 
             'gender' =>'string|nullable|in:F,M', 
             'mobile' => 'string|nullable',
             'address' =>'string|nullable', 
             'email' =>'email|nullable', 
-            'photo' => 'nullable|file',
+            'photo' => 'image|nullable',
         ];
         
         $this->validate($request,$rules);
+        //update photo
+        if($request->file('photo')!=null){
+            $urlPhotoName = time().$request->file('photo')->getClientOriginalName();
+            Storage::disk('localEmployees')->put($urlPhotoName,File::get($request->file('photo')));
+            $urlPhotoName = url("/")."/img/employees/".time().$request->file('photo')->getClientOriginalName();
+            //delele photo
+            $array = explode("/",$employee->photo);
+            $index = count($array);
+            $image_to_delete = $array[$index-1];
+            Storage::disk('localEmployees')->delete($image_to_delete);
+            
+        }else{
+            $urlPhotoName = $employee->photo;
+        }
         
-
-        $employee->fill($request->all());
+        $employee->fill($request->except(['photo']));
+        $employee->fill(['photo' => $urlPhotoName]);
 
         if($employee->isClean()){
             return $this->errorResponse('At least one value must change',
