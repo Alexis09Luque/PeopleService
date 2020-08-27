@@ -8,6 +8,7 @@ use Fouladgar\EloquentBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
+use App\Http\AuxiliarClasses\ImageClass;
 
 use Illuminate\Support\Facades\File;
 
@@ -147,12 +148,12 @@ class EmployeeController extends Controller
 
         $this->validate($request,$rules);
 
-        //upload photo
-        $urlPhotoName = ($request->file('photo')!=null)?time().$request->file('photo')->getClientOriginalName():null;
        
-        if($urlPhotoName!=null){
-            Storage::disk('localEmployees')->put($urlPhotoName,File::get($request->file('photo')));
-            $urlPhotoName = url("/")."/img/employees/".$urlPhotoName;
+        if($request->file('photo')!=null){
+            $image_class = new ImageClass();
+            $urlPhotoName = $image_class->uploadImage($request,'localEmployees',"/img/employees/"); 
+        }else{
+            $urlPhotoName = null;
         }
             
             
@@ -197,6 +198,7 @@ class EmployeeController extends Controller
      */
 
     public function update(Request $request, $id){
+
         //find employee
         $employee = Employee::findOrFail($id);
         //rules
@@ -216,14 +218,9 @@ class EmployeeController extends Controller
         $this->validate($request,$rules);
         //update photo
         if($request->file('photo')!=null){
-            $urlPhotoName = time().$request->file('photo')->getClientOriginalName();
-            Storage::disk('localEmployees')->put($urlPhotoName,File::get($request->file('photo')));
-            $urlPhotoName = url("/")."/img/employees/".time().$request->file('photo')->getClientOriginalName();
-            //delele photo
-            $array = explode("/",$employee->photo);
-            $index = count($array);
-            $image_to_delete = $array[$index-1];
-            Storage::disk('localEmployees')->delete($image_to_delete);
+            $image_class = new ImageClass();
+            $image_class->deleteImage($employee, 'localEmployees');
+            $urlPhotoName = $image_class->uploadImage($request,'localEmployees',"/img/employees/"); 
             
         }else{
             $urlPhotoName = $employee->photo;
