@@ -7,9 +7,9 @@
     "require": {
         "php": ">=7.1.3",
         "laravel/lumen-framework": "5.8.*",
-        "league/flysystem": "^1.0",
-        "vluzrmos/lumen-cors": "2.1.*",
-        "mohammad-fouladgar/eloquent-builder": "^2.2"
+        "league/flysystem": "^1.1",
+        "mohammad-fouladgar/eloquent-builder": "^2.2",
+        "vluzrmos/lumen-cors": "2.1.*"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.4",
