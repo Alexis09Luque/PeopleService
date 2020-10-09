@@ -20,7 +20,7 @@ class CreateApplicantsTable extends Migration
             $table->string('surname',50);
             $table->string('gender');
             $table->string('type');
-            $table->string('institutional_email',100)->unique();
+            $table->string('institutional_email',100)->nullable()->unique();
             $table->string('photo')->nullable();
             $table->string('code')->nullable();
             $table->integer('school_id')->nullable();

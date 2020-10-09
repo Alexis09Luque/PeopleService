@@ -23,7 +23,7 @@ $router->delete("/employees/{id}", ['as' => 'deleteAnEmployee', 'uses' => 'Emplo
 
 
 
-
+$router->get('/applicants/search', ['as' => 'searchApplicant', 'uses' =>'ApplicantController@search']);
 $router->get('/applicants', 'ApplicantController@index');
 $router->post('/applicants', 'ApplicantController@store');
 $router->get('/applicants/{id}', 'ApplicantController@show');
