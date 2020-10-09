@@ -33,7 +33,6 @@ class CreateApplicantsTable extends Migration
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *
