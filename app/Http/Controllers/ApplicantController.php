@@ -33,6 +33,48 @@ class ApplicantController extends Controller
         return $this->successResponse($data);
     }
 
+
+        /**
+     * Return Applicants list for parameter
+     *
+     * @return  Illuminate\Http\Response
+     */
+  
+    public function search(Request $request){
+        $total = Applicant::all()->count();
+        $rules = [
+            'page'  =>'integer|min:1', 
+            'limit' =>"integer|min:1|max:$total",
+        ];
+        $this->validate($request,$rules);
+            
+        if($request->has('quest')){
+            $query = $request->quest;
+            $quantity_found = Applicant::where('names', 'LIKE', "%$query%")
+                                        ->orWhere('surname', 'LIKE', "%$query%")
+                                        ->orWhere('dni', 'LIKE', "%$query%")
+                                        ->count();
+            if($quantity_found != 0){
+                $page_max = ceil($quantity_found/$request->limit);
+                $this->validate($request,['page'  =>"integer|max:$page_max"]);
+            }
+            
+            
+            $applicant = Applicant::where('names', 'LIKE', "%$query%")
+                                ->orWhere('surname', 'LIKE', "%$query%")
+                                ->orWhere('dni', 'LIKE', "%$query%")
+                                ->paginate($request->limit); 
+
+        }else{
+            $page_max = ceil($total/$request->limit);
+            $this->validate($request,['page'  => "integer|max:$page_max"]);
+            $applicant = Applicant::paginate($request->limit); 
+        }
+
+        $applicant->current_page = $request->page;
+        return $this->successResponse($applicant);
+         
+    }
     /**
      * Create an instance of Applicant
      *
