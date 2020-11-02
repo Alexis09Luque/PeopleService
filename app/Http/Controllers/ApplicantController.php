@@ -173,13 +173,22 @@ class ApplicantController extends Controller
         ];
         
         $this->validate($request,$rules);
-        
+        //update photo
+        if($request->file('photo')!=null){
+            $image_class = new ImageClass();
+            $image_class->deleteImage($applicant, 'localApplicants');
+            $urlPhotoName = $image_class->uploadImage($request,'localApplicants',"/img/applicants/"); 
+            
+        }else{
+            $urlPhotoName = $applicant->photo;
+        }
 
-        $applicant->fill($request->all());
+        $applicant->fill($request->except(['photo']));
+        $applicant->fill(['photo' => $urlPhotoName]);
 
         if($applicant->isClean()){
             return $this->errorResponse('At least one value must change',
-            Response::HTTP_UNPROCESSABLE_ENTITY);
+            Response::HTTP_UNPROCESSABLE_ENTITY, 'E002');
         }
 
         $applicant->save();
