@@ -21,7 +21,7 @@ class ShowAnApplicantTest extends TestCase
      * mediante una petitición de tipo get a la 
      * la route de  nombre showAnApplicant
      * la respuesta debe ser un codigo HTTP_OK
-     *  y un json con la estructura data y un code
+     *  y un json con la estructura data,un code y un type
      */
     public function should_get_an_applicant(){
         //ingresar resgitros de solicitantes

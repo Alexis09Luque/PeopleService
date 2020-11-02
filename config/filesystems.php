@@ -53,6 +53,11 @@ return [
             'root' => base_path()."/public/img/employees"
         ],
 
+        'localApplicants' => [
+            'driver' => 'local',
+            'root' => base_path()."/public/img/applicants"
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
